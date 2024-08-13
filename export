@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+<?php
+
+use App\Export\Exporter;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$exporter = new Exporter(__DIR__ . '/channels');
+$exporter->skipChannel('space-channel-to-skip-from-export');
+$exporter->export();
+
+exit(0);

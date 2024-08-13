@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+
+use App\Import\Importer;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$teams = [
+        'test' => 'Import Test',
+];
+
+$exporter = new Importer(__DIR__ . '/channels');
+
+$exporter->addMemberTeamMapping('test@example.com', $teams['test']);
+$exporter->addChannelTeamMapping('space-channel-name', $teams['test']);
+$exporter->import();
+
+exit(0);

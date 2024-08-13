@@ -1,0 +1,47 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$channel = $argv[1];
+$messageNo = (int)$argv[2];
+
+function getChannel(string $name): ?string
+{
+    $channelDir = __DIR__ . '/channels';
+    $dirs = scandir($channelDir);
+
+    foreach ($dirs as $dir) {
+        if ($dir === '.' || $dir === '..') {
+            continue;
+        }
+
+        $channelInfo = json_decode(file_get_contents($channelDir . '/' . $dir . '/channel.json'), true);
+
+        if ($channelInfo['name'] === $name) {
+            return $channelInfo['channelId'];
+        }
+    }
+
+    return null;
+}
+
+function getMessage(string $id, int $messageNo): array
+{
+    $channelDir = __DIR__ . '/channels';
+    $messages = json_decode(file_get_contents($channelDir . '/' . $id . '/messages.json'), true);
+    $index = $messageNo - 1;
+
+    return $messages[$index] ?? [];
+}
+
+$channelId = getChannel($channel);
+
+if (!$channelId) {
+    echo 'Channel not found!';
+    exit(255);
+}
+
+var_dump(getMessage($channelId, $messageNo));
+
+exit(0);

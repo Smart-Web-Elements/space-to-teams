@@ -1,0 +1,30 @@
+{
+  "name": "swe/space-to-teams",
+  "description": "Export JetBrains Space channels and messages and import them into Microsoft Teams.",
+  "type": "project",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Luca Braun",
+      "email": "l.braun@s-w-e.com"
+    }
+  ],
+  "require": {
+    "php": "^8.3",
+    "swe/space-sdk": "^19.0",
+    "microsoft/microsoft-graph": "^2",
+    "vlucas/phpdotenv": "^5.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    },
+    "sort-packages": true
+  }
+}
